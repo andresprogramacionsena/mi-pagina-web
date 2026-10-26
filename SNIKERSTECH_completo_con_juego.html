@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SNIKERSTECH + SNEAKER MATCH</title>
+</head>
+<body>
+
+<style>
+:root {
+  --fondo: #101110;
+  --panel: #191b19;
+  --verde: #3b08f1;
+  --blanco: #f6f7f4;
+  --gris: #a1a59e;
+  --borde: #30332e;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--fondo);
+  color: var(--blanco);
+}
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--verde);
+  outline-offset: 2px;
+}
+header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: #101110f5;
+  border-bottom: 1px solid var(--borde);
+  padding: 16px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+.logo {
+  color: var(--verde);
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+}
+.logo span { color: white; }
+nav { display: flex; gap: 20px; align-items: center; }
+nav button, .link-btn {
+  background: none;
+  border: 0;
+  color: white;
+}
+nav button:hover { color: var(--verde); }
+.cart-btn, .primary {
+  border: 0;
+  border-radius: 8px;
+  background: var(--verde);
+  color: #101110;
+  padding: 12px 17px;
+  font-weight: 800;
+}
+.cart-btn { white-space: nowrap; }
+main { min-height: 75vh; }
+.hero {
+  padding: 65px 5%;
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  align-items: center;
+  gap: 35px;
+  background:
+    radial-gradient(ellipse at 80% 40%, #40501c65, transparent 55%),
+    #141614;
+}
+.eyebrow {
+  color: var(--verde);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+.hero h1 {
+  font-size: clamp(43px, 6vw, 76px);
+  line-height: .98;
+  margin: 18px 0;
+  letter-spacing: -3px;
+}
+.hero h1 span { color: var(--verde); }
+.hero p { color: #b6bbb3; line-height: 1.7; max-width: 500px; }
+.hero-art {
+  min-height: 260px;
+  display: grid;
+  place-items: center;
+  font-size: clamp(100px, 19vw, 210px);
+  transform: rotate(-12deg);
+  filter: drop-shadow(0 25px 20px #0009);
+}
+.section { padding: 40px 5%; }
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+h2 { margin: 0 0 8px; font-size: 29px; }
+.muted { color: var(--gris); font-size: 14px; }
+.toolbar { display: flex; gap: 10px; flex-wrap: wrap; }
+.field, .toolbar select, .toolbar input {
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  background: #101210;
+  border: 1px solid #3a3d37;
+  color: white;
+  border-radius: 7px;
+}
+.toolbar input { width: 210px; }
+.toolbar select { width: auto; }
+.filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.chip {
+  background: #1a1d19;
+  color: #d8dbd5;
+  border: 1px solid #363a33;
+  border-radius: 30px;
+  padding: 9px 15px;
+}
+.chip.active, .chip:hover {
+  background: var(--verde);
+  color: #111;
+  border-color: var(--verde);
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+.product {
+  background: var(--panel);
+  border: 1px solid #282b27;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform .2s, border-color .2s;
+}
+.product:hover { transform: translateY(-4px); border-color: #4c439c; }
+.product img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  background: #232620;
+  display: block;
+}
+.product-body { padding: 15px; }
+.brand {
+  color: var(--verde);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+.product h3 { font-size: 16px; margin: 8px 0; }
+.product .description { font-size: 12px; color: var(--gris); }
+.price { font-size: 20px; font-weight: 900; margin: 14px 0 5px; }
+.old-price { color: #83877f; font-size: 12px; text-decoration: line-through; }
+.product label, .form-label {
+  display: block;
+  color: #d8dbd5;
+  font-size: 12px;
+  margin: 13px 0 6px;
+}
+.product select { width: 100%; }
+.add-btn {
+  width: 100%;
+  margin-top: 12px;
+  border: 1px solid var(--verde);
+  color: var(--verde);
+  background: transparent;
+  padding: 11px;
+  border-radius: 7px;
+  font-weight: 800;
+}
+.add-btn:hover { background: var(--verde); color: #111; }
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  padding: 0 5% 45px;
+}
+.benefit {
+  background: #191c18;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  padding: 20px;
+}
+.benefit b { display: block; margin-bottom: 8px; }
+.benefit p { color: var(--gris); font-size: 13px; line-height: 1.5; }
+footer {
+  border-top: 1px solid var(--borde);
+  padding: 25px 5%;
+  color: var(--gris);
+  font-size: 12px;
+  text-align: center;
+}
+.hidden { display: none !important; }
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: #000b;
+  display: grid;
+  place-items: center;
+  padding: 15px;
+  overflow-y: auto;
+}
+.modal {
+  width: min(100%, 620px);
+  max-height: 92vh;
+  overflow-y: auto;
+  background: #191b19;
+  border: 1px solid #41463b;
+  border-radius: 14px;
+  padding: 25px;
+}
+.modal.wide { width: min(100%, 800px); }
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+.modal-head h2 { font-size: 24px; }
+.close {
+  border: 1px solid #454940;
+  color: white;
+  background: #252824;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 13px;
+}
+.full { grid-column: 1 / -1; }
+.form-label { font-size: 13px; margin-top: 0; }
+.field { margin-top: 7px; }
+textarea.field { resize: vertical; }
+.primary.block { width: 100%; margin-top: 17px; }
+.outline-btn {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid #55594f;
+  color: white;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+.notice {
+  background: #272d20;
+  border: 1px solid #3309ee;
+  color: #e3f8c8;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 14px 0;
+}
+.cart-line {
+  display: grid;
+  grid-template-columns: 75px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  border-bottom: 1px solid var(--borde);
+  padding: 13px 0;
+}
+.cart-line img {
+  width: 75px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 7px;
+}
+.cart-line h4 { margin: 0 0 6px; font-size: 14px; }
+.cart-line p { margin: 4px 0; font-size: 12px; color: var(--gris); }
+.qty { display: flex; align-items: center; gap: 9px; margin-top: 7px; }
+.qty button { background: #30342d; color: white; border: 0; border-radius: 5px; padding: 5px 9px; }
+.remove { color: #ff8b8b; background: none; border: 0; font-size: 12px; }
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 0;
+  color: #d4d7d0;
+  font-size: 14px;
+}
+.total-row.final { border-top: 1px solid #474b42; padding-top: 15px; font-size: 20px; font-weight: 900; color: var(--verde); }
+.pay-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.pay-option {
+  padding: 13px;
+  border: 1px solid #41453d;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.pay-option:has(input:checked) { border-color: var(--verde); background: #28311e; }
+.empty { text-align: center; padding: 30px 10px; color: var(--gris); }
+.account { font-size: 12px; color: var(--gris); }
+.account button { color: var(--verde); }
+@media (max-width: 1000px) {
+  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .product img { height: 175px; }
+}
+@media (max-width: 700px) {
+  header { padding: 13px 4%; flex-wrap: wrap; }
+  nav { order: 3; width: 100%; justify-content: space-between; gap: 8px; }
+  nav button { font-size: 12px; padding: 6px 0; }
+  .hero { grid-template-columns: 1fr; padding: 45px 5%; gap: 0; }
+  .hero-art { min-height: 130px; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .product img { height: 135px; }
+  .product-body { padding: 10px; }
+  .product h3 { font-size: 14px; }
+  .price { font-size: 17px; }
+  .section { padding: 30px 4%; }
+  .benefits { grid-template-columns: 1fr; padding: 0 4% 30px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .full { grid-column: auto; }
+  .modal { padding: 17px; }
+  .toolbar { width: 100%; }
+  .toolbar input, .toolbar select { width: 100%; }
+}
+
+/* —— Panel de administrador —— */
+.admin-btn {
+  background: transparent;
+  border: 1px solid #55594f;
+  color: #d8dbd5;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.admin-btn:hover { border-color: var(--verde); color: var(--verde); }
+.admin-shell {
+  position: fixed; inset: 0; z-index: 20;
+  background: #0c0d0c;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+}
+.admin-shell.open { display: flex; }
+.admin-top {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap;
+  padding: 14px 5%;
+  border-bottom: 1px solid #30332e;
+  background: #141614;
+}
+.admin-top h2 { margin: 0; font-size: 18px; }
+.admin-nav { display: flex; gap: 8px; flex-wrap: wrap; }
+.admin-nav button {
+  background: #1a1d19; border: 1px solid #363a33; color: #d8dbd5;
+  border-radius: 8px; padding: 8px 12px; font-size: 13px;
+}
+.admin-nav button.active, .admin-nav button:hover {
+  background: var(--verde); color: #111; border-color: var(--verde);
+}
+.admin-body { flex: 1; overflow: auto; padding: 20px 5%; }
+.admin-stats {
+  display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-bottom: 18px;
+}
+.admin-stat {
+  background: #191b19; border: 1px solid #282b27; border-radius: 12px; padding: 16px;
+}
+.admin-stat span { display: block; color: var(--gris); font-size: 12px; }
+.admin-stat strong { font-size: 24px; }
+.admin-panel {
+  background: #191b19; border: 1px solid #282b27; border-radius: 12px;
+  padding: 18px; margin-bottom: 16px;
+}
+.admin-panel h3 { margin: 0 0 12px; font-size: 16px; }
+.admin-table-wrap { overflow: auto; }
+.admin-table { width: 100%; border-collapse: collapse; min-width: 640px; font-size: 13px; }
+.admin-table th, .admin-table td {
+  text-align: left; padding: 10px 8px; border-bottom: 1px solid #30332e; vertical-align: top;
+}
+.admin-table th { color: var(--gris); font-size: 11px; text-transform: uppercase; letter-spacing: .4px; }
+.admin-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.btn-sm {
+  border: 0; border-radius: 6px; padding: 6px 10px; font-size: 12px; font-weight: 700; cursor: pointer;
+}
+.btn-sm.edit { background: #2a2650; color: #c4bfff; }
+.btn-sm.del { background: #3a1a1e; color: #ff8b8b; }
+.btn-sm.save { background: var(--verde); color: #111; }
+.admin-login {
+  max-width: 400px; margin: 40px auto; background: #191b19;
+  border: 1px solid #41463b; border-radius: 14px; padding: 28px;
+}
+.admin-login h2 { margin: 0 0 8px; }
+.admin-login .field { margin-top: 12px; }
+.admin-error {
+  color: #ff8b8b; background: #3a1a1e; border-radius: 8px;
+  padding: 10px; font-size: 13px; margin-top: 12px; display: none;
+}
+.admin-error.show { display: block; }
+.admin-toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+.admin-toolbar input, .admin-toolbar select {
+  flex: 1; min-width: 160px; padding: 10px; background: #101210;
+  border: 1px solid #3a3d37; color: white; border-radius: 7px;
+}
+.admin-form-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+.admin-form-grid .full { grid-column: 1 / -1; }
+.admin-empty { text-align: center; padding: 28px; color: var(--gris); }
+.pill-admin {
+  display: inline-block; border-radius: 99px; padding: 3px 8px;
+  font-size: 11px; font-weight: 700; background: #2a2650; color: #c4bfff;
+}
+.pill-admin.green { background: #1a3328; color: #7ddea8; }
+.pill-admin.red { background: #3a1a1e; color: #ff8b8b; }
+.pill-admin.orange { background: #332a14; color: #f0c36a; }
+@media (max-width: 700px) {
+  .admin-stats { grid-template-columns: 1fr 1fr; }
+  .admin-form-grid { grid-template-columns: 1fr; }
+  .admin-form-grid .full { grid-column: auto; }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- JUEGO SNEAKER MATCH: aparece primero al abrir la aplicación -->
+<section id="sneakerMatchTop" style="width:100%; background:#080b0a;">
+  <iframe id="sneakerMatchFrame" title="Juego SNEAKER MATCH"
+    style="display:block; width:100%; height:1050px; border:0; background:#080b0a;"
+    loading="eager"></iframe>
+</section>
+<script>
+  document.getElementById("sneakerMatchFrame").srcdoc = "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Sneaker Match | Juego de zapatillas<\/title>\n\n  <style>\n    :root {\n      --fondo: #080b0a;\n      --panel: #111714;\n      --verde: #1707f8;\n      --texto: #f4f7f2;\n      --gris: #fcfbfb;\n    }\n\n    * {\n      box-sizing: border-box;\n    }\n\n    body {\n      margin: 0;\n      font-family: Arial, Helvetica, sans-serif;\n      color: var(--texto);\n      background:\n        radial-gradient(ellipse at top, #17241b 0%, transparent 60%),\n        var(--fondo);\n      min-height: 100vh;\n    }\n\n    header {\n      padding: 22px 7%;\n      display: flex;\n      justify-content: space-between;\n      align-items: center;\n      border-bottom: 1px solid #263229;\n    }\n\n    .logo {\n      font-size: 23px;\n      font-weight: 900;\n      letter-spacing: -1px;\n    }\n\n    .logo span {\n      color: var(--verde);\n    }\n\n    .tag {\n      color: var(--verde);\n      border: 1px solid #426126;\n      padding: 8px 12px;\n      border-radius: 30px;\n      font-size: 11px;\n      letter-spacing: 1px;\n    }\n\n    main {\n      width: min(1000px, 92%);\n      margin: 35px auto;\n    }\n\n    .hero {\n      text-align: center;\n      margin-bottom: 28px;\n    }\n\n    .eyebrow {\n      color: var(--verde);\n      font-size: 12px;\n      font-weight: bold;\n      letter-spacing: 3px;\n    }\n\n    h1 {\n      font-size: clamp(36px, 7vw, 65px);\n      line-height: 1;\n      margin: 14px 0;\n      letter-spacing: -3px;\n    }\n\n    h1 span {\n      color: var(--verde);\n    }\n\n    .hero p {\n      color: var(--gris);\n      line-height: 1.6;\n      margin: 12px auto;\n      max-width: 520px;\n    }\n\n    .stats {\n      display: grid;\n      grid-template-columns: repeat(4, 1fr);\n      gap: 12px;\n      margin: 28px 0 18px;\n    }\n\n    .stat {\n      padding: 17px 8px;\n      background: var(--panel);\n      border: 1px solid #263229;\n      border-radius: 14px;\n      text-align: center;\n    }\n\n    .stat small {\n      display: block;\n      color: var(--gris);\n      font-size: 10px;\n      letter-spacing: 1px;\n      margin-bottom: 9px;\n    }\n\n    .stat strong {\n      font-size: 24px;\n    }\n\n    .stat .green {\n      color: var(--verde);\n    }\n\n    .toolbar {\n      display: flex;\n      justify-content: space-between;\n      align-items: center;\n      gap: 12px;\n      flex-wrap: wrap;\n      margin-bottom: 17px;\n    }\n\n    .difficulties {\n      display: flex;\n      gap: 7px;\n    }\n\n    button,\n    select {\n      font: inherit;\n    }\n\n    .difficulty,\n    .restart {\n      cursor: pointer;\n      border: 1px solid #344139;\n      border-radius: 9px;\n      background: #151c17;\n      color: var(--texto);\n      padding: 10px 13px;\n      font-size: 12px;\n      transition: 0.2s;\n    }\n\n    .difficulty.active,\n    .difficulty:hover {\n      background: var(--verde);\n      border-color: var(--verde);\n      color: #ffffff;\n      font-weight: bold;\n    }\n\n    .restart {\n      background: var(--verde);\n      color: #ffffff;\n      border-color: var(--verde);\n      font-weight: bold;\n    }\n\n    .restart:hover {\n      transform: translateY(-2px);\n    }\n\n    #message {\n      color: var(--gris);\n      font-size: 13px;\n      text-align: center;\n      margin: 15px 0;\n      min-height: 18px;\n    }\n\n    #message.good {\n      color: var(--verde);\n    }\n\n    .board {\n      display: grid;\n      grid-template-columns: repeat(4, minmax(0, 1fr));\n      gap: 12px;\n      perspective: 1000px;\n    }\n\n    .card {\n      position: relative;\n      height: 155px;\n      min-width: 0;\n      cursor: pointer;\n      background: transparent;\n      border: 0;\n      padding: 0;\n      perspective: 800px;\n    }\n\n    .card-inner {\n      position: absolute;\n      inset: 0;\n      transform-style: preserve-3d;\n      transition: transform 0.45s ease;\n    }\n\n    .card.flipped .card-inner,\n    .card.matched .card-inner {\n      transform: rotateY(180deg);\n    }\n\n    .face {\n      position: absolute;\n      inset: 0;\n      border-radius: 13px;\n      border: 1px solid #2b382e;\n      backface-visibility: hidden;\n      -webkit-backface-visibility: hidden;\n      overflow: hidden;\n    }\n\n    .back {\n      display: flex;\n      align-items: center;\n      justify-content: center;\n      flex-direction: column;\n      gap: 12px;\n      background: linear-gradient(145deg, #17221a, #0e130f);\n    }\n\n    .back .symbol {\n      font-size: 37px;\n      color: var(--verde);\n    }\n\n    .back small {\n      font-size: 10px;\n      color: #8e9d90;\n      letter-spacing: 2px;\n    }\n\n    .front {\n      transform: rotateY(180deg);\n      background: #f0f2ed;\n      color: #111811;\n      display: flex;\n      align-items: center;\n      justify-content: center;\n      flex-direction: column;\n      padding: 10px;\n    }\n\n    .shoe {\n      width: 100%;\n      height: 92px;\n      object-fit: contain;\n      filter: drop-shadow(0 5px 5px #0002);\n    }\n\n    .shoe-emoji {\n      font-size: 55px;\n      height: 92px;\n      width: 100%;\n      align-items: center;\n      justify-content: center;\n    }\n\n    .front small {\n      font-size: 9px;\n      font-weight: 900;\n      letter-spacing: 1px;\n      text-align: center;\n    }\n\n    .card:hover:not(.matched) .face {\n      border-color: var(--verde);\n    }\n\n    .card.matched .face {\n      border: 2px solid #80ce25;\n    }\n\n    .card.matched .front {\n      background: #e5f9d3;\n    }\n\n    .card:focus-visible {\n      outline: 2px solid var(--verde);\n      outline-offset: 3px;\n      border-radius: 13px;\n    }\n\n    .progress-wrap {\n      margin-top: 22px;\n      background: #1b241d;\n      height: 6px;\n      border-radius: 10px;\n      overflow: hidden;\n    }\n\n    #progress {\n      height: 100%;\n      width: 0%;\n      background: var(--verde);\n      transition: width 0.3s;\n    }\n\n    footer {\n      text-align: center;\n      color: #758077;\n      font-size: 11px;\n      padding: 35px 12px;\n    }\n\n    footer span {\n      color: var(--verde);\n    }\n\n    .overlay {\n      position: fixed;\n      inset: 0;\n      z-index: 5;\n      background: #050806df;\n      display: none;\n      align-items: center;\n      justify-content: center;\n      padding: 20px;\n    }\n\n    .overlay.show {\n      display: flex;\n    }\n\n    .modal {\n      max-width: 400px;\n      width: 100%;\n      text-align: center;\n      padding: 35px 25px;\n      border: 1px solid #425833;\n      background: #111914;\n      border-radius: 20px;\n    }\n\n    .modal .trophy {\n      font-size: 55px;\n    }\n\n    .modal h2 {\n      font-size: 30px;\n    }\n\n    .modal p {\n      color: var(--gris);\n      line-height: 1.7;\n    }\n\n    .modal strong {\n      color: var(--verde);\n    }\n\n    @media (max-width: 600px) {\n      header {\n        padding: 18px 5%;\n      }\n\n      .logo {\n        font-size: 18px;\n      }\n\n      .tag {\n        font-size: 9px;\n      }\n\n      main {\n        margin-top: 27px;\n      }\n\n      .stats {\n        gap: 7px;\n      }\n\n      .stat {\n        padding: 14px 4px;\n      }\n\n      .stat strong {\n        font-size: 20px;\n      }\n\n      .stat small {\n        font-size: 8px;\n      }\n\n      .board {\n        gap: 8px;\n      }\n\n      .card {\n        height: 115px;\n      }\n\n      .shoe,\n      .shoe-emoji {\n        height: 65px;\n      }\n\n      .shoe-emoji {\n        font-size: 40px;\n      }\n\n      .front {\n        padding: 5px;\n      }\n\n      .front small {\n        font-size: 8px;\n      }\n\n      .back .symbol {\n        font-size: 30px;\n      }\n\n      .difficulty {\n        padding: 9px;\n      }\n    }\n\n    @media (max-width: 360px) {\n      .card {\n        height: 100px;\n      }\n\n      .shoe,\n      .shoe-emoji {\n        height: 55px;\n      }\n\n      .difficulties {\n        gap: 4px;\n      }\n\n      .difficulty {\n        padding: 8px 6px;\n        font-size: 10px;\n      }\n    }\n  <\/style>\n<\/head>\n\n<body>\n  <header>\n    <div class=\"logo\">SNEAKER<span>MATCH.<\/span><\/div>\n    <div class=\"tag\">MEMORY CHALLENGE<\/div>\n  <\/header>\n\n  <main>\n    <section class=\"hero\">\n      <div class=\"eyebrow\">THE SNEAKER GAME<\/div>\n      <h1>ENCUENTRA EL <span>PAR.<\/span><\/h1>\n      <p>\n        Pon a prueba tu memoria. Voltea las tarjetas,\n        encuentra las zapatillas iguales y supera tu récord.\n      <\/p>\n    <\/section>\n\n    <section class=\"stats\">\n      <div class=\"stat\">\n        <small>PUNTOS<\/small>\n        <strong class=\"green\" id=\"score\">0<\/strong>\n      <\/div>\n\n      <div class=\"stat\">\n        <small>TIEMPO<\/small>\n        <strong id=\"time\">00:00<\/strong>\n      <\/div>\n\n      <div class=\"stat\">\n        <small>INTENTOS<\/small>\n        <strong id=\"moves\">0<\/strong>\n      <\/div>\n\n      <div class=\"stat\">\n        <small>PAREJAS<\/small>\n        <strong id=\"pairs\">0/8<\/strong>\n      <\/div>\n    <\/section>\n\n    <section class=\"toolbar\">\n      <div class=\"difficulties\">\n        <button class=\"difficulty\" data-level=\"easy\">FÁCIL<\/button>\n        <button class=\"difficulty active\" data-level=\"medium\">MEDIO<\/button>\n        <button class=\"difficulty\" data-level=\"hard\">DIFÍCIL<\/button>\n      <\/div>\n\n      <button class=\"restart\" id=\"restart\">↻ Reiniciar<\/button>\n    <\/section>\n\n    <div id=\"message\" role=\"status\" aria-live=\"polite\">\n      ¡Encuentra todas las parejas!\n    <\/div>\n\n    <section\n      class=\"board\"\n      id=\"board\"\n      aria-label=\"Tarjetas de zapatillas\">\n    <\/section>\n\n    <div class=\"progress-wrap\">\n      <div id=\"progress\"><\/div>\n    <\/div>\n  <\/main>\n\n  <footer>\n    HECHO PARA LOS AMANTES DE LAS <span>ZAPATILLAS.<\/span>\n  <\/footer>\n\n  <div class=\"overlay\" id=\"overlay\">\n    <div class=\"modal\">\n      <div class=\"trophy\">🏆<\/div>\n      <h2 id=\"modalTitle\">¡LO LOGRASTE!<\/h2>\n      <p id=\"result\"><\/p>\n      <button class=\"restart\" id=\"playAgain\">\n        JUGAR OTRA VEZ ↻\n      <\/button>\n    <\/div>\n  <\/div>\n\n  <script>\n    \"use strict\";\n\n    // Imágenes de las zapatillas.\n    // Guarda las imágenes en una carpeta llamada \"imagenes\".\n\n    const sneakers = [\n      {\n        name: \"JORDAN ROJAS\",\n        image: \"https://fershopctg.com/cdn/shop/files/9b5ebad0-c511-4396-b7c9-a5a8481c5563.jpg?v=1698439806&width=1445\",\n        emoji: \"\",\n        color: \"#e53935\"\n      },\n      {\n        name: \"NIKE BLANCAS\",\n        image: \"https://www.tennispremium.co/cdn/shop/files/660B2D9F-433B-41F0-A8C4-B27206860382.jpg?v=1712689554\",\n        emoji: \"\",\n        color: \"#eeeeee\"\n      },\n      {\n        name: \"ADIDAS NEGRAS\",\n        image: \"https://www.tennispremium.co/cdn/shop/files/IMG_7237.jpg?v=1715299865&width=1445\",\n        emoji: \"\",\n        color: \"#222222\"\n      },\n      {\n        name: \"AIR MAX\",\n        image: \"https://www.tennispremium.co/cdn/shop/files/CEB570F5-5F12-455C-AC17-D587D8B5A829.jpg?v=1712689503&width=1946\",\n        emoji: \"\",\n        color: \"#2196f3\"\n      },\n      {\n        name: \"NEW BALANCE\",\n        image: \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdX6Bgs_OoJ1Ufwczc0WvFHkFESvjf0H6-x_rASWeAIQ&s=10\",\n        emoji: \"\",\n        color: \"#78909c\"\n      },\n      {\n        name: \"PUMA\",\n        image: \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGZXAu0IvjT_LiAzdnDy4q7C36lZmWMFYtUheA0sB-vQRmmoVrUUgcrkj3&s=10\",\n        emoji: \"\",\n        color: \"#111111\"\n      },\n      {\n        name: \"NIKE AZULES\",\n        image: \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy-_JT6JVxnUpup-K74gC3p18N3x31kwuKe-ZG83EmRg&s=10\",\n        emoji: \"\",\n        color: \"#1976d2\"\n      },\n      {\n        name: \"JORDAN BLANCAS\",\n        image: \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK3m7c7VZwEnKyMt1ScvgiE2L67-_qmMX1jBnGjafiN4B2AnK2pCMSRejU&s=10\",\n        emoji: \"\",\n        color: \"#eeeeee\"\n      },\n      {\n        name: \"RUNNER\",\n        image: \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRufDO_Zokjgpf_XkcPdeeQGMcKsWFdHjjIHL0aBUI6pEUBuMS7VvB0Sg&s=10\",\n        emoji: \"\",\n        color: \"#43a047\"\n      },\n      {\n        name: \"RETRO\",\n        image: \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ30RZsgSK2yikGqIOUcU9M3U3IdsVbdkPnC5wDrEVUjFmf-a4cby8pPHo&s=10\",\n        emoji: \"\",\n        color: \"#ff9800\"\n      },\n      {\n        name: \"URBAN\",\n        image: \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC8KR-Y8rgsozZC0DQiNDrRlgE25VEnKDnsBKUlc1SLz95Pd1jR6EWcwct&s=10\",\n        emoji: \"\",\n        color: \"#757575\"\n      },\n      {\n        name: \"SPEED\",\n        image: \"https://www.flash-co.store/cdn/shop/files/On_CIoud_white_black.png?v=1791020899\",\n        emoji: \"\",\n        color: \"#8e24aa\"\n      }\n    ];\n\n    // Configuración de los niveles.\n    const levels = {\n      easy: {\n        pairs: 6,\n        cols: 4,\n        time: 90\n      },\n      medium: {\n        pairs: 8,\n        cols: 4,\n        time: 120\n      },\n      hard: {\n        pairs: 12,\n        cols: 4,\n        time: 150\n      }\n    };\n\n    // Elementos del HTML.\n    const board = document.getElementById(\"board\");\n    const scoreEl = document.getElementById(\"score\");\n    const timeEl = document.getElementById(\"time\");\n    const movesEl = document.getElementById(\"moves\");\n    const pairsEl = document.getElementById(\"pairs\");\n    const message = document.getElementById(\"message\");\n    const progress = document.getElementById(\"progress\");\n    const overlay = document.getElementById(\"overlay\");\n    const result = document.getElementById(\"result\");\n    const modalTitle = document.getElementById(\"modalTitle\");\n\n    // Variables del juego.\n    let level = \"medium\";\n    let deck = [];\n    let opened = [];\n    let matched = 0;\n    let moves = 0;\n    let score = 0;\n    let seconds = levels[level].time;\n    let timer = null;\n    let started = false;\n    let locked = false;\n    let roundId = 0;\n\n    // Mezcla aleatoriamente las tarjetas.\n    function shuffle(array) {\n      const copy = [...array];\n\n      for (let i = copy.length - 1; i > 0; i--) {\n        const j = Math.floor(Math.random() * (i + 1));\n\n        [copy[i], copy[j]] = [copy[j], copy[i]];\n      }\n\n      return copy;\n    }\n\n    // Convierte los segundos al formato minutos:segundos.\n    function formatTime(value) {\n      const safeValue = Math.max(0, value);\n      const minutes = Math.floor(safeValue / 60);\n      const remainingSeconds = safeValue % 60;\n\n      return String(minutes).padStart(2, \"0\") +\n        \":\" +\n        String(remainingSeconds).padStart(2, \"0\");\n    }\n\n    // Actualiza los puntos, el tiempo y las parejas.\n    function updateStats() {\n      scoreEl.textContent = String(score);\n      timeEl.textContent = formatTime(seconds);\n      movesEl.textContent = String(moves);\n\n      pairsEl.textContent =\n        `${matched}/${levels[level].pairs}`;\n\n      progress.style.width =\n        `${(matched / levels[level].pairs) * 100}%`;\n    }\n\n    // Detiene el temporizador.\n    function stopTimer() {\n      if (timer !== null) {\n        clearInterval(timer);\n        timer = null;\n      }\n    }\n\n    // Inicia el tiempo cuando se voltea la primera tarjeta.\n    function startTimer() {\n      if (started || locked) {\n        return;\n      }\n\n      started = true;\n\n      timer = setInterval(() => {\n        seconds = Math.max(0, seconds - 1);\n        updateStats();\n\n        if (seconds === 0) {\n          stopTimer();\n          locked = true;\n          message.textContent = \"¡Se acabó el tiempo!\";\n          finish(false);\n        }\n      }, 1000);\n    }\n\n    // Crea una tarjeta con su imagen.\n    function makeCard(item, index, round) {\n      const card = document.createElement(\"button\");\n\n      card.type = \"button\";\n      card.className = \"card\";\n      card.setAttribute(\"aria-label\", \"Tarjeta oculta\");\n      card.dataset.index = String(index);\n\n      card.innerHTML = `\n        <div class=\"card-inner\">\n          <div class=\"face back\">\n            <div class=\"symbol\">✳<\/div>\n            <small>SNEAKER<\/small>\n          <\/div>\n\n          <div class=\"face front\">\n            <img\n              class=\"shoe\"\n              src=\"${item.image}\"\n              alt=\"${item.name}\"\n            >\n\n            <div\n              class=\"shoe-emoji\"\n              aria-hidden=\"true\"\n              style=\"display: none; color: ${item.color}\">\n              ${item.emoji}\n            <\/div>\n\n            <small>${item.name}<\/small>\n          <\/div>\n        <\/div>\n      `;\n\n      // Si no encuentra la imagen, muestra un emoji.\n      const image = card.querySelector(\".shoe\");\n      const emoji = card.querySelector(\".shoe-emoji\");\n\n      image.addEventListener(\"error\", () => {\n        image.style.display = \"none\";\n        emoji.style.display = \"flex\";\n      }, { once: true });\n\n      card.addEventListener(\"click\", () => {\n        if (round !== roundId) {\n          return;\n        }\n\n        flipCard(card, item, round);\n      });\n\n      return card;\n    }\n\n    // Inicia una partida nueva.\n    function newGame(newLevel = level) {\n      roundId++;\n\n      stopTimer();\n\n      level = Object.prototype.hasOwnProperty.call(\n        levels,\n        newLevel\n      ) ? newLevel : \"medium\";\n\n      opened = [];\n      matched = 0;\n      moves = 0;\n      score = 0;\n      started = false;\n      locked = false;\n      seconds = levels[level].time;\n\n      overlay.classList.remove(\"show\");\n\n      modalTitle.textContent = \"¡LO LOGRASTE!\";\n\n      // Actualiza el botón del nivel seleccionado.\n      document.querySelectorAll(\".difficulty\").forEach((button) => {\n        button.classList.toggle(\n          \"active\",\n          button.dataset.level === level\n        );\n      });\n\n      // Selecciona las zapatillas necesarias.\n      const chosen = shuffle(sneakers).slice(\n        0,\n        levels[level].pairs\n      );\n\n      // Duplica cada zapatilla para crear las parejas.\n      deck = shuffle(\n        chosen.flatMap((item, pairId) => [\n          { ...item, pairId },\n          { ...item, pairId }\n        ])\n      );\n\n      board.style.gridTemplateColumns =\n        `repeat(${levels[level].cols}, minmax(0, 1fr))`;\n\n      board.innerHTML = \"\";\n\n      const currentRound = roundId;\n\n      deck.forEach((item, index) => {\n        board.appendChild(\n          makeCard(item, index, currentRound)\n        );\n      });\n\n      message.textContent = \"¡Encuentra todas las parejas!\";\n      message.className = \"\";\n\n      updateStats();\n    }\n\n    // Voltea una tarjeta y comprueba si coincide con otra.\n    function flipCard(card, item, round) {\n      if (\n        round !== roundId ||\n        locked ||\n        card.classList.contains(\"flipped\") ||\n        card.classList.contains(\"matched\")\n      ) {\n        return;\n      }\n\n      startTimer();\n\n      card.classList.add(\"flipped\");\n      card.setAttribute(\"aria-label\", item.name);\n\n      opened.push({ card, item });\n\n      // Espera a que se seleccione la segunda tarjeta.\n      if (opened.length < 2) {\n        return;\n      }\n\n      moves++;\n      locked = true;\n\n      const [first, second] = opened;\n\n      // Comprueba si las tarjetas forman una pareja.\n      if (first.item.pairId === second.item.pairId) {\n        matched++;\n        score += 100;\n\n        message.textContent =\n          \"¡Excelente! Encontraste un par.\";\n\n        message.className = \"good\";\n\n        first.card.classList.add(\"matched\");\n        second.card.classList.add(\"matched\");\n\n        first.card.setAttribute(\n          \"aria-label\",\n          \"Pareja encontrada\"\n        );\n\n        second.card.setAttribute(\n          \"aria-label\",\n          \"Pareja encontrada\"\n        );\n\n        opened = [];\n        locked = false;\n\n        updateStats();\n\n        // Comprueba si se encontraron todas las parejas.\n        if (matched === levels[level].pairs) {\n          finish(true);\n        }\n\n        return;\n      }\n\n      // Resta puntos si las tarjetas son diferentes.\n      score = Math.max(0, score - 10);\n\n      message.textContent =\n        \"No son iguales. ¡Inténtalo otra vez!\";\n\n      message.className = \"\";\n\n      updateStats();\n\n      const thisRound = roundId;\n\n      // Vuelve a ocultar las tarjetas después de un momento.\n      setTimeout(() => {\n        if (thisRound !== roundId) {\n          return;\n        }\n\n        first.card.classList.remove(\"flipped\");\n        second.card.classList.remove(\"flipped\");\n\n        first.card.setAttribute(\n          \"aria-label\",\n          \"Tarjeta oculta\"\n        );\n\n        second.card.setAttribute(\n          \"aria-label\",\n          \"Tarjeta oculta\"\n        );\n\n        opened = [];\n        locked = false;\n      }, 850);\n    }\n\n    // Finaliza la partida.\n    function finish(won) {\n      stopTimer();\n      locked = true;\n\n      if (won) {\n        score += seconds * 5;\n\n        updateStats();\n\n        message.textContent =\n          \"¡Eres un experto en zapatillas!\";\n\n        message.className = \"good\";\n\n        modalTitle.textContent = \"¡LO LOGRASTE!\";\n\n        result.innerHTML = `\n          Terminaste en\n          <strong>${formatTime(levels[level].time - seconds)}<\/strong>.<br>\n          Puntuación final: <strong>${score}<\/strong><br>\n          Intentos: <strong>${moves}<\/strong>\n        `;\n      } else {\n        modalTitle.textContent = \"¡TIEMPO AGOTADO!\";\n\n        result.innerHTML = `\n          Puntuación: <strong>${score}<\/strong><br>\n          Parejas encontradas: <strong>${matched}<\/strong>\n          de <strong>${levels[level].pairs}<\/strong>.<br>\n          ¡Intenta superar tu marca!\n        `;\n      }\n\n      overlay.classList.add(\"show\");\n    }\n\n    // Cambia el nivel de dificultad.\n    document.querySelectorAll(\".difficulty\").forEach((button) => {\n      button.addEventListener(\"click\", () => {\n        newGame(button.dataset.level);\n      });\n    });\n\n    // Reinicia la partida actual.\n    document.getElementById(\"restart\").addEventListener(\n      \"click\",\n      () => newGame()\n    );\n\n    // Permite jugar otra vez desde la ventana final.\n    document.getElementById(\"playAgain\").addEventListener(\n      \"click\",\n      () => newGame()\n    );\n\n    // Inicia el juego al cargar la página.\n    newGame();\n  <\/script>\n<\/body>\n<\/html>";
+</script>
+<div style="text-align:center; padding:18px 5%; background:#0c0d0c; border-bottom:1px solid #30332e;">
+  <button class="primary" onclick="document.getElementById('store').scrollIntoView({behavior:'smooth'})" style="width:auto; padding:12px 22px;">
+    ↓ Ir a la tienda SNIKERSTECH
+  </button>
+</div>
+
+
+<header>
+  <div class="logo">SNIKERS<span>TECH.</span></div>
+  <nav>
+    <button onclick="showCatalog()">Inicio</button>
+    <button onclick="showCatalog()">Tenis</button>
+    <button onclick="document.getElementById('sneakerMatchTop').scrollIntoView({behavior:'smooth'})">🎮 Juego</button>
+    <button onclick="openAccount()">Mi cuenta</button>
+    <button class="admin-btn" onclick="openAdminPanel()">Panel de administrador</button>
+  </nav>
+  <button class="cart-btn" onclick="openCart()">🛒 Carrito <span id="cartCount">0</span></button>
+</header>
+
+<main id="store">
+ 
+<section class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">SNEAKERS · STREETWEAR · CULTURA URBANA</div>
+
+    <h1>TU ESTILO,<br><span>TU HUELLA</span></h1>
+
+    <p>Descubre los sneakers que hablan por ti</p>
+
+    <button class="primary"
+      onclick="document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})">
+      EXPLORAR TENIS
+    </button>
+  </div>
+
+  <div class="hero-art">
+  </div>
+</section>
+
+
+  <section class="section" id="catalogo">
+    <div class="section-head">
+      <div>
+        <h2>Encuentra tu próximo par.</h2>
+        <div class="muted">Estilo urbano para todos los días.</div>
+      </div>
+      <div class="toolbar">
+        <input id="search" placeholder="Buscar tenis o marca..." oninput="renderProducts()">
+        <select id="sort" onchange="renderProducts()">
+          <option value="featured">Destacados</option>
+          <option value="low">Menor precio</option>
+          <option value="high">Mayor precio</option>
+          <option value="name">Nombre A-Z</option>
+        </select>
+      </div>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="grid" id="products"></div>
+    <p id="noProducts" class="empty hidden">No encontramos tenis con esa búsqueda.</p>
+  </section>
+
+  <section class="benefits">
+    <div class="benefit"><b>👟 Estilo para todos</b><p>Modelos casuales, deportivos y urbanos para combinar con tu outfit.</p></div>
+    <div class="benefit"><b>💳 Varias formas de pago</b><p>Explora las opciones disponibles en el módulo de compra de demostración.</p></div>
+    <div class="benefit"><b>📦 Datos de envío</b><p>Completa tu dirección y código postal durante el proceso de compra.</p></div>
+  </section>
+</main>
+
+<footer>
+  <div class="logo">SNIKERS<span>TECH.</span></div>
+  <p>Tu estilo. Tus pasos. Tu identidad.</p>
+  <p>Proyecto académico de tienda virtual · Precios ilustrativos en COP.</p>
+</footer>
+
+<!-- REGISTRO E INICIO DE SESIÓN -->
+<div id="authOverlay" class="overlay hidden">
+  <div class="modal">
+    <div class="modal-head">
+      <div>
+        <div class="logo">SNIKERS<span>TECH.</span></div>
+        <h2 id="authTitle">Crear cuenta</h2>
+      </div>
+      <button class="close" onclick="closeModal('authOverlay')">✕</button>
+    </div>
+    <p class="muted">Ingresa para disfrutar de nuestra colección urbana.</p>
+    <form id="authForm">
+      <div id="nameGroup">
+        <label class="form-label">Nombre completo
+          <input class="field" id="authName" autocomplete="name" required>
+        </label>
+      </div>
+      <label class="form-label">Correo electrónico
+        <input class="field" id="authEmail" type="email" autocomplete="email" required>
+      </label>
+      <label class="form-label">Contraseña
+        <input class="field" id="authPassword" type="password" minlength="6" autocomplete="current-password" required>
+      </label>
+      <div id="authMessage" class="muted"></div>
+      <button class="primary block" id="authSubmit">CREAR MI CUENTA</button>
+    </form>
+    <button class="outline-btn" onclick="toggleAuthMode()" id="authSwitch">Ya tengo cuenta · Iniciar sesión</button>
+    <p class="muted">Demostración académica: las cuentas se guardan únicamente en este navegador.</p>
+  </div>
+</div>
+
+<!-- CARRITO -->
+<div id="cartOverlay" class="overlay hidden">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>🛒 Tu carrito</h2>
+      <button class="close" onclick="closeModal('cartOverlay')">✕</button>
+    </div>
+    <div id="cartItems"></div>
+    <div id="cartSummary"></div>
+    <button class="primary block" id="checkoutBtn" onclick="startCheckout()">CONTINUAR AL PAGO →</button>
+    <button class="outline-btn" onclick="closeModal('cartOverlay')">Seguir comprando</button>
+  </div>
+</div>
+
+<!-- CHECKOUT -->
+<div id="checkoutOverlay" class="overlay hidden">
+  <div class="modal wide">
+    <div class="modal-head">
+      <div>
+        <div class="eyebrow">ÚLTIMO PASO</div>
+        <h2>Finalizar compra</h2>
+      </div>
+      <button class="close" onclick="closeModal('checkoutOverlay')">✕</button>
+    </div>
+    <div class="notice">
+      Módulo de demostración. No se realizará ningún cobro real.
+      No introduzcas números de tarjetas ni claves bancarias reales.
+    </div>
+    <form id="checkoutForm">
+      <h3>1. Datos personales</h3>
+      <div class="form-grid">
+        <label class="form-label">Nombre completo
+          <input class="field" name="fullName" id="shipName" required autocomplete="name">
+        </label>
+        <label class="form-label">Correo electrónico
+          <input class="field" name="email" id="shipEmail" type="email" required autocomplete="email">
+        </label>
+        <label class="form-label">Teléfono
+          <input class="field" name="phone" type="tel" required pattern="[0-9+ ()-]{7,20}" autocomplete="tel">
+        </label>
+        <label class="form-label">Departamento
+          <select class="field" name="department" id="department" required>
+            <option value="">Selecciona tu departamento</option>
+            <option>Amazonas</option><option>Antioquia</option><option>Arauca</option>
+            <option>Atlántico</option><option>Bogotá D.C.</option><option>Bolívar</option>
+            <option>Boyacá</option><option>Caldas</option><option>Caquetá</option>
+            <option>Casanare</option><option>Cauca</option><option>Cesar</option>
+            <option>Chocó</option><option>Córdoba</option><option>Cundinamarca</option>
+            <option>Guainía</option><option>Guaviare</option><option>Huila</option>
+            <option>La Guajira</option><option>Magdalena</option><option>Meta</option>
+            <option>Nariño</option><option>Norte de Santander</option><option>Putumayo</option>
+            <option>Quindío</option><option>Risaralda</option><option>San Andrés y Providencia</option>
+            <option>Santander</option><option>Sucre</option><option>Tolima</option>
+            <option>Valle del Cauca</option><option>Vaupés</option><option>Vichada</option>
+          </select>
+        </label>
+        <label class="form-label">Ciudad o municipio
+          <input class="field" name="city" required autocomplete="address-level2">
+        </label>
+        <label class="form-label">Código postal
+          <input class="field" name="postal" required inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="Ej. 110111" autocomplete="postal-code">
+        </label>
+        <label class="form-label full">Dirección de entrega
+          <input class="field" name="address" required autocomplete="street-address" placeholder="Calle, carrera, número, apartamento...">
+        </label>
+        <label class="form-label full">Indicaciones adicionales (opcional)
+          <textarea class="field" name="notes" rows="2" placeholder="Barrio, conjunto o indicaciones para la entrega"></textarea>
+        </label>
+      </div>
+
+      <h3 style="margin-top:27px">2. Método de pago</h3>
+      <div class="pay-options">
+        <label class="pay-option"><input type="radio" name="payment" value="PSE" required> 🏦 PSE</label>
+        <label class="pay-option"><input type="radio" name="payment" value="Nequi"> 🟣 Nequi</label>
+        <label class="pay-option"><input type="radio" name="payment" value="Daviplata"> 🔴 Daviplata</label>
+        <label class="pay-option"><input type="radio" name="payment" value="Tarjeta de crédito/débito"> 💳 Tarjeta</label>
+        <label class="pay-option"><input type="radio" name="payment" value="Contraentrega"> 📦 Contraentrega</label>
+        <label class="pay-option"><input type="radio" name="payment" value="Transferencia bancaria"> 🏛️ Transferencia</label>
+      </div>
+
+      <div id="paymentInfo" class="notice hidden"></div>
+
+      <h3 style="margin-top:27px">3. Resumen del pedido</h3>
+      <div id="checkoutSummary"></div>
+      <label class="pay-option" style="margin-top:15px">
+        <input type="checkbox" id="terms" required>
+        Confirmo que mis datos de envío son correctos.
+      </label>
+      <button class="primary block" type="submit">CONFIRMAR PEDIDO</button>
+    </form>
+  </div>
+</div>
+
+<!-- CONFIRMACIÓN -->
+<div id="successOverlay" class="overlay hidden">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>¡Pedido registrado!</h2>
+      <button class="close" onclick="closeModal('successOverlay')">✕</button>
+    </div>
+    <div style="font-size:58px;text-align:center">✅</div>
+    <p id="successMessage" class="muted"></p>
+    <div class="notice">Este es un pedido de prueba. No es una confirmación bancaria ni una compra real.</div>
+    <button class="primary block" onclick="closeModal('successOverlay');showCatalog()">VOLVER A LA TIENDA</button>
+  </div>
+</div>
+
+
+<!-- PANEL DE ADMINISTRADOR -->
+<div id="adminShell" class="admin-shell" aria-hidden="true">
+  <div class="admin-top">
+    <div>
+      <div class="logo">SNIKERS<span>TECH.</span></div>
+      <h2>Panel de administrador</h2>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <div class="admin-nav" id="adminNav" style="display:none">
+        <button type="button" class="active" data-admin-tab="resumen">Resumen</button>
+        <button type="button" data-admin-tab="registros">Registros</button>
+        <button type="button" data-admin-tab="compras">Compras</button>
+        <button type="button" data-admin-tab="productos">Productos</button>
+      </div>
+      <button class="outline-btn" style="width:auto;margin:0;padding:8px 14px" type="button" onclick="closeAdminPanel()">Cerrar panel</button>
+    </div>
+  </div>
+  <div class="admin-body">
+    <!-- Login -->
+    <div id="adminLoginView">
+      <div class="admin-login">
+        <h2>Acceso restringido</h2>
+        <p class="muted">Solo personal autorizado. Ingresa con la cuenta de administrador.</p>
+        <form id="adminLoginForm" autocomplete="off">
+          <label class="form-label">Usuario
+            <input class="field" id="adminUser" required autocomplete="username" placeholder="Usuario">
+          </label>
+          <label class="form-label">Contraseña
+            <input class="field" id="adminPass" type="password" required autocomplete="current-password" placeholder="Contraseña">
+          </label>
+          <button class="primary block" type="submit">Entrar al panel</button>
+          <div class="admin-error" id="adminLoginError">Usuario o contraseña incorrectos.</div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Contenido admin -->
+    <div id="adminContent" style="display:none">
+      <section id="admin-resumen">
+        <div class="admin-stats">
+          <div class="admin-stat"><span>Clientes registrados</span><strong id="aStatUsers">0</strong></div>
+          <div class="admin-stat"><span>Productos</span><strong id="aStatProducts">0</strong></div>
+          <div class="admin-stat"><span>Compras</span><strong id="aStatPurchases">0</strong></div>
+          <div class="admin-stat"><span>Valor total</span><strong id="aStatRevenue">$0</strong></div>
+        </div>
+        <div class="admin-panel">
+          <h3>Últimas compras</h3>
+          <div id="aRecentPurchases"></div>
+        </div>
+      </section>
+
+      <section id="admin-registros" class="hidden">
+        <div class="admin-panel">
+          <h3>Registros de clientes</h3>
+          <div class="admin-toolbar">
+            <input id="aUserSearch" placeholder="Buscar por nombre, correo o teléfono..." oninput="adminRenderUsers()">
+          </div>
+          <div id="aUsersTable"></div>
+        </div>
+        <div class="admin-panel" id="aUserEditPanel" style="display:none">
+          <h3>Editar registro</h3>
+          <form id="aUserEditForm">
+            <input type="hidden" name="id">
+            <div class="admin-form-grid">
+              <label class="form-label">Nombre<input class="field" name="name" required></label>
+              <label class="form-label">Correo<input class="field" name="email" type="email" required></label>
+              <label class="form-label">Teléfono<input class="field" name="phone"></label>
+              <label class="form-label">Ciudad<input class="field" name="city"></label>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+              <button class="primary" type="submit" style="width:auto">Guardar cambios</button>
+              <button class="outline-btn" type="button" style="width:auto;margin:0" onclick="document.getElementById('aUserEditPanel').style.display='none'">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="admin-compras" class="hidden">
+        <div class="admin-panel">
+          <h3>Compras registradas</h3>
+          <div class="admin-toolbar">
+            <input id="aPurchaseSearch" placeholder="Buscar pedido o cliente..." oninput="adminRenderPurchases()">
+            <select id="aStatusFilter" onchange="adminRenderPurchases()">
+              <option value="">Todos los estados</option>
+              <option>Pendiente</option><option>Pagado</option><option>Enviado</option>
+              <option>Entregado</option><option>Cancelado</option>
+            </select>
+          </div>
+          <div id="aPurchasesTable"></div>
+        </div>
+      </section>
+
+      <section id="admin-productos" class="hidden">
+        <div class="admin-panel">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px">
+            <h3 style="margin:0">Inventario / catálogo</h3>
+            <button class="primary" type="button" style="width:auto" onclick="adminNewProduct()">+ Añadir producto</button>
+          </div>
+          <div class="admin-toolbar">
+            <input id="aProductSearch" placeholder="Buscar marca o modelo..." oninput="adminRenderProducts()">
+          </div>
+          <div id="aProductsTable"></div>
+        </div>
+        <div class="admin-panel" id="aProductEditPanel" style="display:none">
+          <h3 id="aProductFormTitle">Editar producto</h3>
+          <form id="aProductEditForm">
+            <input type="hidden" name="id">
+            <div class="admin-form-grid">
+              <label class="form-label">Marca<input class="field" name="brand" required></label>
+              <label class="form-label">Modelo<input class="field" name="name" required></label>
+              <label class="form-label">Precio (COP)<input class="field" name="price" type="number" min="1" required></label>
+              <label class="form-label">Stock<input class="field" name="stock" type="number" min="0" required></label>
+              <label class="form-label full">Descripción<input class="field" name="description"></label>
+              <label class="form-label full">URL imagen (opcional)<input class="field" name="img" placeholder="https://..."></label>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+              <button class="primary" type="submit" style="width:auto">Guardar producto</button>
+              <button class="outline-btn" type="button" style="width:auto;margin:0" onclick="document.getElementById('aProductEditPanel').style.display='none'">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+// PRODUCTOS DE DEMOSTRACIÓN
+const productsData = [
+ {id:1,brand:"JORDAN",name:"Air Jordan 1 Mid",price:150000,old:349900,img:"https://footdistrict.com/cdn/shop/files/sneakers-air-jordan-1-retro-high-og-unc-reimagined-dz5485-402-0.jpg?v=1774612281&width=1200",category:"Jordan"},
+ {id:2,brand:"NIKE",name:"Air Max Street",price:120000,old:279900,img:"https://www.sportline.com.co/media/catalog/product/d/m/dm0029-020_phsrh000-2000.jpeg?optimize=medium&bg-color=255,255,255&fit=bounds&height=&width=&canvas=:",category:"Nike"},
+ {id:3,brand:"ADIDAS",name:"Forum Classic",price:150000,old:249900,img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0_S3MstdMe1LVTdGxLirHoT32QBf0M2RaUbWT8Ui_crRGIZ3oNjdWD6U&s=10",category:"Adidas"},
+ {id:4,brand:"PUMA",name:"RS-X Urban",price:110000,old:239900,img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRubf3uWJ3-CP25s1lue12gU-m92QhaetqaPDjtXLpPkaYZSkLJDx9t7P0&s=10",category:"Puma"},
+ {id:5,brand:"NEW BALANCE",name:"574 Street",price:140000,old:289900,img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi2QmWJPy6kY5vLOJgilP34T_5uqOXR1o8sHjzILNqaQ&s=10",category:"New Balance"},
+ {id:6,brand:"NIKE",name:"Air Force Classic",price:130000,old:299900,img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqVlMuWPEGuwX04N2C55E1GQNDCl-e6BHr6YbrQ6hu1Q&s=10",category:"Nike"},
+ {id:7,brand:"JORDAN",name:"Jordan Retro High",price:180000,old:389900,img:"https://cdn-images.farfetch-contents.com/12/96/03/49/12960349_13486594_600.jpg",category:"Jordan"},
+ {id:8,brand:"ADIDAS",name:"Runfalcon Sport",price:100000,old:189900,img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfHjpbRG2mD8qeEkguO_Jj4nPelenH9SKqcca85-CHiQ&s=10",category:"Adidas"},
+ {id:9,brand:"CONVERSE",name:"Chuck Taylor",price:150000,old:199900,img:"https://www.sportline.com.co/media/catalog/product/m/9/m9160c_frontf1-001.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=&width=&canvas=:",category:"Converse"},
+ {id:10,brand:"VANS",name:"Old Skool Urban",price:160000,old:209900,img:"https://tenismundourban.com/cdn/shop/files/0D5IB8C-4_1200x1200.webp?v=1692812346",category:"Vans"},
+ {id:11,brand:"NIKE",name:"Revolution Runner",price:159900,old:199900,img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtPvTTXEmxsyeK-Re9fnKjJ3eqgDhkZcPqwQ93Sg-qyQ&s=10",category:"Nike"},
+ {id:12,brand:"PUMA",name:"Smash V2",price:139900,old:179900,img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL4hyRhFAwmdcCqRfV2p5KMNBOAX_iDLt7ajC40xZ3vrgsdD25Q104mSo&s=10",category:"Puma"},
+ {id:13,brand:"ADIDAS",name:"Grand Court",price:179900,old:219900,img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIojgKQfRiBLG2C9AmpkSDOF5OZf4g62OChAYsdIpM67YlBLFDpAgtpu3L&s=10",category:"Adidas"},
+ {id:14,brand:"JORDAN",name:"Jordan Low Essential",price:269900,old:329900,img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW0URO9rYOGfph63eumkVIook2UpHx1svg6A65JF1m-AortOChK03zBn9b&s=10",category:"Jordan"},
+ {id:15,brand:"FILA",name:"Disruptor Street",price:179900,old:229900,img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgLcXHaYMNOB_dkJAYUDwN2wWoKZI1BBNj8IY4658CoVyiTq5QNv9xupI&s=10",category:"Fila"},
+ {id:16,brand:"NEW BALANCE",name:"574 Core",price:239900,old:289900,img:"data:image/webp;base64,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",category:"New Balance"},
+ {id:17,brand:"NIKE",name:"Court Vision",price:199900,old:249900,img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqyM5Cu2281Q4UvbKgCf7upxJubW_mqro-L5zXebHGiQ&s=10",category:"Nike"},
+ {id:18,brand:"VANS",name:"Skate Classic",price:179900,old:219900,img:"https://media.falabella.com/falabellaCO/151431155_01/w=1500,h=1500,fit=cover",category:"Vans"},
+ {id:19,brand:"ADIDAS",name:"Duramo Running",price:169900,old:209900,img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQB6FqPM_B-hfqxKdA4g6dJH_6zqPGAThpCB_O-Fhopxg&s=10",category:"Adidas"},
+ {id:20,brand:"PUMA",name:"Caven Classic",price:169900,old:209900,img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXEbHg-k2lR8008IE9LQM_lvW_b9czD2uPznEtrUI_Rg&s=10",category:"Puma"},
+ {id:21,brand:"CONVERSE",name:"Chuck 70 High",price:189900,old:229900,img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9qd2l661o2h7AGPmEmQwz82rB7dnI0sH4IDnkmyKy3A&s=10",category:"Converse"},
+ {id:22,brand:"JORDAN",name:"Jordan Flight Basic",price:299900,old:359900,img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFKx6AQs4I9w7JGh2ZgrgMMOCTJbuLmp-mNVB-TzEhwQ&s=10",category:"Jordan"},
+ {id:23,brand:"FILA",name:"Ray Tracer",price:159900,old:199900,img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzwc9wSJVIT1xR4w32A-nrupP5Nr5lnsXi794vOwN_MA&s=10",category:"Fila"},
+ {id:24,brand:"NEW BALANCE",name:"574 Sport Edition",price:249900,old:309900,img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcgkx92bjWCw2tmC4i2dI2hTuT9WKDGGRyzyS3hCFtww&s=10",category:"New Balance"}
+];
+
+
+// ——— Datos compartidos tienda + panel admin ———
+const PANEL_KEY = "snikers_panel_v1";
+const AUTH_KEY = "st_users";
+const ADMIN_USER = "miguel";
+const ADMIN_PASS = "lemo2026";
+let adminLoggedIn = false;
+let products = [];
+
+function loadPanel() {
+  try {
+    const raw = JSON.parse(localStorage.getItem(PANEL_KEY) || "{}");
+    return {
+      users: Array.isArray(raw.users) ? raw.users : [],
+      products: Array.isArray(raw.products) ? raw.products : [],
+      purchases: Array.isArray(raw.purchases) ? raw.purchases : []
+    };
+  } catch {
+    return { users: [], products: [], purchases: [] };
+  }
+}
+function savePanel(data) {
+  localStorage.setItem(PANEL_KEY, JSON.stringify(data));
+}
+function seedProductsFromCatalog() {
+  return productsData.map(p => ({
+    id: String(p.id),
+    brand: p.brand,
+    name: p.name,
+    price: p.price,
+    stock: 15,
+    description: (p.category || "") + " · Estilo urbano · Unisex",
+    old: p.old,
+    img: p.img,
+    category: p.category
+  }));
+}
+function getLiveProducts() {
+  const panel = loadPanel();
+  if (!panel.products.length) {
+    panel.products = seedProductsFromCatalog();
+    savePanel(panel);
+  }
+  return panel.products.map(p => {
+    const catalog = productsData.find(c => String(c.id) === String(p.id));
+    return {
+      ...p,
+      id: String(p.id),
+      old: p.old ?? catalog?.old ?? Math.round(Number(p.price) * 1.3),
+      img: p.img || catalog?.img || "",
+      category: p.category || catalog?.category || p.brand || "Otros"
+    };
+  });
+}
+function syncUserToPanel(name, email, phone, city) {
+  const panel = loadPanel();
+  const emailNorm = (email || "").toLowerCase();
+  if (!panel.users.some(u => (u.email || "").toLowerCase() === emailNorm)) {
+    panel.users.push({
+      id: (crypto.randomUUID ? crypto.randomUUID() : String(Date.now())),
+      name: name || "",
+      email: emailNorm,
+      phone: phone || "",
+      city: city || "",
+      created: new Date().toISOString()
+    });
+    savePanel(panel);
+  }
+}
+function syncPurchaseToPanel(order, cartItems, liveProducts) {
+  const panel = loadPanel();
+  const items = cartItems.map(x => {
+    const p = liveProducts.find(pr => String(pr.id) === String(x.id));
+    return {
+      brand: p ? p.brand : "",
+      name: p ? p.name : ("Producto " + x.id),
+      qty: x.qty,
+      price: p ? p.price : 0,
+      size: x.size || ""
+    };
+  });
+  panel.purchases.push({
+    id: order.orderNumber,
+    customer: order.customer,
+    email: order.email || "",
+    phone: order.phone || "",
+    address: order.address || "",
+    city: order.city || "",
+    items,
+    total: order.total,
+    status: "Pendiente",
+    paymentRef: order.payment || "",
+    created: new Date().toISOString()
+  });
+  cartItems.forEach(x => {
+    const idx = panel.products.findIndex(p => String(p.id) === String(x.id));
+    if (idx >= 0) {
+      panel.products[idx].stock = Math.max(0, (Number(panel.products[idx].stock) || 0) - x.qty);
+    }
+  });
+  const emailNorm = (order.email || "").toLowerCase();
+  if (emailNorm && !panel.users.some(u => (u.email || "").toLowerCase() === emailNorm)) {
+    panel.users.push({
+      id: (crypto.randomUUID ? crypto.randomUUID() : String(Date.now())),
+      name: order.customer || "",
+      email: emailNorm,
+      phone: order.phone || "",
+      city: order.city || "",
+      created: new Date().toISOString()
+    });
+  }
+  savePanel(panel);
+}
+
+// —— UI Panel admin ——
+function openAdminPanel() {
+  const shell = document.getElementById("adminShell");
+  shell.classList.add("open");
+  shell.setAttribute("aria-hidden", "false");
+  if (adminLoggedIn) {
+    showAdminContent();
+  } else {
+    document.getElementById("adminLoginView").style.display = "block";
+    document.getElementById("adminContent").style.display = "none";
+    document.getElementById("adminNav").style.display = "none";
+    document.getElementById("adminLoginForm").reset();
+    document.getElementById("adminLoginError").classList.remove("show");
+  }
+}
+function closeAdminPanel() {
+  const shell = document.getElementById("adminShell");
+  shell.classList.remove("open");
+  shell.setAttribute("aria-hidden", "true");
+  renderProducts();
+}
+function showAdminContent() {
+  document.getElementById("adminLoginView").style.display = "none";
+  document.getElementById("adminContent").style.display = "block";
+  document.getElementById("adminNav").style.display = "flex";
+  adminShowTab("resumen");
+}
+document.getElementById("adminLoginForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const u = document.getElementById("adminUser").value.trim();
+  const p = document.getElementById("adminPass").value;
+  if (u === ADMIN_USER && p === ADMIN_PASS) {
+    adminLoggedIn = true;
+    document.getElementById("adminLoginError").classList.remove("show");
+    showAdminContent();
+  } else {
+    document.getElementById("adminLoginError").classList.add("show");
+    document.getElementById("adminPass").value = "";
+  }
+});
+function adminShowTab(tab) {
+  ["resumen","registros","compras","productos"].forEach(t => {
+    const el = document.getElementById("admin-" + t);
+    if (el) el.classList.toggle("hidden", t !== tab);
+  });
+  document.querySelectorAll("#adminNav button").forEach(b => {
+    b.classList.toggle("active", b.getAttribute("data-admin-tab") === tab);
+  });
+  if (tab === "resumen") adminRenderOverview();
+  if (tab === "registros") adminRenderUsers();
+  if (tab === "compras") adminRenderPurchases();
+  if (tab === "productos") adminRenderProducts();
+}
+document.querySelectorAll("#adminNav button").forEach(b => {
+  b.addEventListener("click", () => adminShowTab(b.getAttribute("data-admin-tab")));
+});
+
+function adminStatusPill(s) {
+  let c = (s === "Pagado" || s === "Entregado") ? "green" : (s === "Cancelado" ? "red" : (s === "Enviado" ? "orange" : ""));
+  return `<span class="pill-admin ${c}">${escapeHTML(s)}</span>`;
+}
+function adminRenderOverview() {
+  const data = loadPanel();
+  document.getElementById("aStatUsers").textContent = data.users.length;
+  document.getElementById("aStatProducts").textContent = data.products.length || productsData.length;
+  document.getElementById("aStatPurchases").textContent = data.purchases.length;
+  const rev = data.purchases.filter(p => p.status !== "Cancelado").reduce((s, p) => s + (Number(p.total) || 0), 0);
+  document.getElementById("aStatRevenue").textContent = money(rev);
+  const recent = data.purchases.slice().sort((a,b) => String(b.created).localeCompare(String(a.created))).slice(0, 5);
+  const box = document.getElementById("aRecentPurchases");
+  if (!recent.length) {
+    box.innerHTML = '<div class="admin-empty">Aún no hay compras. Se registrarán al confirmar pedidos en la tienda.</div>';
+    return;
+  }
+  box.innerHTML = `<div class="admin-table-wrap"><table class="admin-table"><thead><tr>
+    <th>Pedido</th><th>Cliente</th><th>Total</th><th>Estado</th><th>Fecha</th>
+  </tr></thead><tbody>${recent.map(p => `<tr>
+    <td>${escapeHTML(p.id)}</td>
+    <td>${escapeHTML(p.customer)}</td>
+    <td>${money(p.total)}</td>
+    <td>${adminStatusPill(p.status)}</td>
+    <td>${new Date(p.created).toLocaleString("es-CO")}</td>
+  </tr>`).join("")}</tbody></table></div>`;
+}
+function adminRenderUsers() {
+  const data = loadPanel();
+  const q = (document.getElementById("aUserSearch").value || "").toLowerCase();
+  const list = data.users.filter(u => `${u.name} ${u.email} ${u.phone}`.toLowerCase().includes(q));
+  const box = document.getElementById("aUsersTable");
+  if (!list.length) {
+    box.innerHTML = '<div class="admin-empty">No hay registros de clientes.</div>';
+    return;
+  }
+  box.innerHTML = `<div class="admin-table-wrap"><table class="admin-table"><thead><tr>
+    <th>Nombre</th><th>Correo</th><th>Teléfono</th><th>Ciudad</th><th>Fecha</th><th>Acciones</th>
+  </tr></thead><tbody>${list.map(u => `<tr>
+    <td>${escapeHTML(u.name)}</td>
+    <td>${escapeHTML(u.email)}</td>
+    <td>${escapeHTML(u.phone || "—")}</td>
+    <td>${escapeHTML(u.city || "—")}</td>
+    <td>${u.created ? new Date(u.created).toLocaleDateString("es-CO") : "—"}</td>
+    <td class="admin-actions">
+      <button type="button" class="btn-sm edit" onclick="adminEditUser('${u.id}')">Editar</button>
+      <button type="button" class="btn-sm del" onclick="adminDeleteUser('${u.id}')">Borrar</button>
+    </td>
+  </tr>`).join("")}</tbody></table></div>`;
+}
+window.adminEditUser = function(id) {
+  const data = loadPanel();
+  const u = data.users.find(x => String(x.id) === String(id));
+  if (!u) return;
+  const f = document.getElementById("aUserEditForm");
+  f.elements.id.value = u.id;
+  f.elements.name.value = u.name || "";
+  f.elements.email.value = u.email || "";
+  f.elements.phone.value = u.phone || "";
+  f.elements.city.value = u.city || "";
+  document.getElementById("aUserEditPanel").style.display = "block";
+  document.getElementById("aUserEditPanel").scrollIntoView({ behavior: "smooth" });
+};
+window.adminDeleteUser = function(id) {
+  if (!confirm("¿Borrar este registro de cliente?")) return;
+  const data = loadPanel();
+  data.users = data.users.filter(u => String(u.id) !== String(id));
+  savePanel(data);
+  adminRenderUsers();
+  adminRenderOverview();
+};
+document.getElementById("aUserEditForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const id = fd.get("id");
+  const data = loadPanel();
+  const idx = data.users.findIndex(u => String(u.id) === String(id));
+  if (idx < 0) return;
+  data.users[idx] = {
+    ...data.users[idx],
+    name: String(fd.get("name") || "").trim(),
+    email: String(fd.get("email") || "").trim().toLowerCase(),
+    phone: String(fd.get("phone") || "").trim(),
+    city: String(fd.get("city") || "").trim()
+  };
+  savePanel(data);
+  document.getElementById("aUserEditPanel").style.display = "none";
+  adminRenderUsers();
+  alert("Registro actualizado.");
+});
+
+function adminRenderPurchases() {
+  const data = loadPanel();
+  const q = (document.getElementById("aPurchaseSearch").value || "").toLowerCase();
+  const st = document.getElementById("aStatusFilter").value;
+  let list = data.purchases.filter(p =>
+    (!st || p.status === st) &&
+    `${p.id} ${p.customer} ${p.email}`.toLowerCase().includes(q)
+  ).slice().sort((a,b) => String(b.created).localeCompare(String(a.created)));
+  const box = document.getElementById("aPurchasesTable");
+  if (!list.length) {
+    box.innerHTML = '<div class="admin-empty">No hay compras registradas.</div>';
+    return;
+  }
+  box.innerHTML = `<div class="admin-table-wrap"><table class="admin-table"><thead><tr>
+    <th>Pedido</th><th>Cliente</th><th>Productos</th><th>Total</th><th>Estado</th><th>Acciones</th>
+  </tr></thead><tbody>${list.map(p => {
+    const items = (p.items || []).map(i => `${i.qty} × ${i.brand} ${i.name}${i.size ? " (talla "+i.size+")" : ""}`).join("<br>");
+    return `<tr>
+      <td><b>${escapeHTML(p.id)}</b><br><span class="muted">${new Date(p.created).toLocaleString("es-CO")}</span></td>
+      <td>${escapeHTML(p.customer)}<br><span class="muted">${escapeHTML(p.email || "")}</span>
+        ${p.phone ? "<br><span class='muted'>"+escapeHTML(p.phone)+"</span>" : ""}
+        ${p.city ? "<br><span class='muted'>"+escapeHTML(p.city)+"</span>" : ""}
+      </td>
+      <td>${items || "—"}</td>
+      <td>${money(p.total)}</td>
+      <td>
+        <select onchange="adminChangeStatus('${p.id}', this.value)" style="background:#101210;color:#fff;border:1px solid #3a3d37;border-radius:6px;padding:6px">
+          ${["Pendiente","Pagado","Enviado","Entregado","Cancelado"].map(s =>
+            `<option ${s===p.status?"selected":""}>${s}</option>`).join("")}
+        </select>
+      </td>
+      <td class="admin-actions">
+        <button type="button" class="btn-sm del" onclick="adminDeletePurchase('${p.id}')">Borrar</button>
+      </td>
+    </tr>`;
+  }).join("")}</tbody></table></div>`;
+}
+window.adminChangeStatus = function(id, status) {
+  const data = loadPanel();
+  const p = data.purchases.find(x => String(x.id) === String(id));
+  if (p) { p.status = status; savePanel(data); adminRenderOverview(); }
+};
+window.adminDeletePurchase = function(id) {
+  if (!confirm("¿Borrar esta compra del historial?")) return;
+  const data = loadPanel();
+  data.purchases = data.purchases.filter(p => String(p.id) !== String(id));
+  savePanel(data);
+  adminRenderPurchases();
+  adminRenderOverview();
+};
+
+function adminRenderProducts() {
+  products = getLiveProducts();
+  const q = (document.getElementById("aProductSearch").value || "").toLowerCase();
+  const list = products.filter(p => `${p.brand} ${p.name}`.toLowerCase().includes(q));
+  const box = document.getElementById("aProductsTable");
+  if (!list.length) {
+    box.innerHTML = '<div class="admin-empty">No hay productos.</div>';
+    return;
+  }
+  box.innerHTML = `<div class="admin-table-wrap"><table class="admin-table"><thead><tr>
+    <th>Producto</th><th>Precio</th><th>Stock</th><th>Acciones</th>
+  </tr></thead><tbody>${list.map(p => `<tr>
+    <td><b>${escapeHTML(p.brand)} ${escapeHTML(p.name)}</b><br><span class="muted">${escapeHTML(p.description || "")}</span></td>
+    <td>${money(p.price)}</td>
+    <td>${Number(p.stock)===0 ? '<span class="pill-admin red">Agotado</span>' :
+      (Number(p.stock)<=3 ? `<span class="pill-admin orange">${p.stock}</span>` :
+      `<span class="pill-admin green">${p.stock}</span>`)}</td>
+    <td class="admin-actions">
+      <button type="button" class="btn-sm edit" onclick="adminEditProduct('${p.id}')">Editar</button>
+      <button type="button" class="btn-sm del" onclick="adminDeleteProduct('${p.id}')">Borrar</button>
+    </td>
+  </tr>`).join("")}</tbody></table></div>`;
+}
+window.adminNewProduct = function() {
+  const f = document.getElementById("aProductEditForm");
+  f.reset();
+  f.elements.id.value = "";
+  document.getElementById("aProductFormTitle").textContent = "Añadir producto";
+  document.getElementById("aProductEditPanel").style.display = "block";
+  document.getElementById("aProductEditPanel").scrollIntoView({ behavior: "smooth" });
+};
+window.adminEditProduct = function(id) {
+  const data = loadPanel();
+  const p = data.products.find(x => String(x.id) === String(id));
+  if (!p) return;
+  const f = document.getElementById("aProductEditForm");
+  f.elements.id.value = p.id;
+  f.elements.brand.value = p.brand || "";
+  f.elements.name.value = p.name || "";
+  f.elements.price.value = p.price;
+  f.elements.stock.value = p.stock;
+  f.elements.description.value = p.description || "";
+  f.elements.img.value = p.img || "";
+  document.getElementById("aProductFormTitle").textContent = "Editar producto";
+  document.getElementById("aProductEditPanel").style.display = "block";
+  document.getElementById("aProductEditPanel").scrollIntoView({ behavior: "smooth" });
+};
+window.adminDeleteProduct = function(id) {
+  if (!confirm("¿Borrar este producto del inventario?")) return;
+  const data = loadPanel();
+  data.products = data.products.filter(p => String(p.id) !== String(id));
+  savePanel(data);
+  adminRenderProducts();
+  adminRenderOverview();
+};
+document.getElementById("aProductEditForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const data = loadPanel();
+  if (!data.products.length) data.products = seedProductsFromCatalog();
+  const id = String(fd.get("id") || Date.now());
+  const payload = {
+    id,
+    brand: String(fd.get("brand") || "").trim(),
+    name: String(fd.get("name") || "").trim(),
+    price: Number(fd.get("price")),
+    stock: Number(fd.get("stock")),
+    description: String(fd.get("description") || "").trim(),
+    img: String(fd.get("img") || "").trim()
+  };
+  if (!payload.brand || !payload.name || payload.price <= 0 || payload.stock < 0) {
+    alert("Revisa los datos del producto.");
+    return;
+  }
+  const idx = data.products.findIndex(p => String(p.id) === id);
+  if (idx >= 0) data.products[idx] = { ...data.products[idx], ...payload };
+  else data.products.push({ ...payload, category: payload.brand, old: Math.round(payload.price * 1.25) });
+  savePanel(data);
+  document.getElementById("aProductEditPanel").style.display = "none";
+  adminRenderProducts();
+  adminRenderOverview();
+  alert("Producto guardado.");
+});
+
+const money = n => new Intl.NumberFormat("es-CO", {
+  style:"currency", currency:"COP", maximumFractionDigits:0
+}).format(n);
+
+let selectedCategory = "Todos";
+let cart = [];
+let currentUser = null;
+let authMode = "register";
+
+const categories = ["Todos","Jordan","Nike","Adidas","Puma","New Balance","Converse","Vans","Fila"];
+
+function renderFilters() {
+  document.getElementById("filters").innerHTML = categories.map(c =>
+    `<button class="chip ${c===selectedCategory?"active":""}" onclick="setCategory('${c}')">${c}</button>`
+  ).join("");
+}
+function setCategory(c) {
+  selectedCategory = c;
+  renderFilters();
+  renderProducts();
+}
+function renderProducts() {
+  products = getLiveProducts();
+  const q = document.getElementById("search").value.trim().toLowerCase();
+  let list = products.filter(p =>
+    (selectedCategory==="Todos" || p.category===selectedCategory) &&
+    (p.name+" "+p.brand+" "+(p.category||"")).toLowerCase().includes(q) &&
+    (Number(p.stock) > 0 || p.stock === undefined)
+  );
+  const sort = document.getElementById("sort").value;
+  if(sort==="low") list.sort((a,b)=>a.price-b.price);
+  if(sort==="high") list.sort((a,b)=>b.price-a.price);
+  if(sort==="name") list.sort((a,b)=>a.name.localeCompare(b.name));
+
+  document.getElementById("noProducts").classList.toggle("hidden",list.length!==0);
+  document.getElementById("products").innerHTML = list.map(p => `
+    <article class="product">
+      <img src="${p.img||""}" alt="${p.brand} ${p.name}" loading="lazy"
+           onerror="this.onerror=null;this.src='https://placehold.co/600x400/20251b/b7ff32?text=SnikersTech'">
+      <div class="product-body">
+        <div class="brand">${p.brand}</div>
+        <h3>${p.name}</h3>
+        <div class="description">${(p.description||"Estilo urbano · Unisex").replace(/</g,"&lt;")}</div>
+        <div class="price">${money(p.price)}</div>
+        <div class="old-price">${money(p.old)}</div>
+        <label for="size-${p.id}">Selecciona tu talla (CO)</label>
+        <select class="field" id="size-${p.id}">
+          ${[36,37,38,39,40,41,42,43,44,45].map(s=>`<option value="${s}">${s}</option>`).join("")}
+        </select>
+        <button class="add-btn" onclick="addToCart('${p.id}')">＋ AGREGAR AL CARRITO</button>
+      </div>
+    </article>`).join("");
+}
+function addToCart(id) {
+  const p = products.find(x=>String(x.id)===String(id));
+  if(!p) return;
+  const size = document.getElementById("size-"+id).value;
+  const found = cart.find(x=>String(x.id)===String(id) && x.size===size);
+  if(found) found.qty++;
+  else cart.push({id:String(id),size,qty:1});
+  updateCartCount();
+  alert(p.name+" · talla "+size+" agregado al carrito.");
+}
+function updateCartCount() {
+  document.getElementById("cartCount").textContent = cart.reduce((n,x)=>n+x.qty,0);
+}
+function totals() {
+  const subtotal = cart.reduce((sum,x)=>{
+    const p = products.find(pr=>String(pr.id)===String(x.id));
+    return sum + (p ? p.price : 0) * x.qty;
+  },0);
+  const shipping = subtotal===0 || subtotal>=250000 ? 0 : 12000;
+  return {subtotal,shipping,total:subtotal+shipping};
+}
+function summaryHTML() {
+  const t = totals();
+  return `<div class="total-row"><span>Subtotal</span><b>${money(t.subtotal)}</b></div>
+    <div class="total-row"><span>Envío ${t.subtotal>=250000?"(gratis)":""}</span><b>${money(t.shipping)}</b></div>
+    <div class="total-row final"><span>Total</span><span>${money(t.total)}</span></div>
+    <p class="muted">Envío gratis en compras desde $250.000 COP.</p>`;
+}
+function openCart() {
+  renderCart();
+  showModal("cartOverlay");
+}
+function renderCart() {
+  const target = document.getElementById("cartItems");
+  if(cart.length===0) {
+    target.innerHTML = '<div class="empty"><div style="font-size:45px">🛒</div><p>Tu carrito está vacío.</p><p>¡Encuentra tus próximos tenis favoritos!</p></div>';
+  } else {
+    target.innerHTML = cart.map((x,i)=>{
+      const p = products.find(pr=>String(pr.id)===String(x.id)) || {};
+      return `<div class="cart-line">
+        <img src="${p.img||""}" alt="${p.name||""}">
+        <div><h4>${p.name||"Producto"}</h4><p>Talla: ${x.size} · ${money(p.price||0)}</p>
+          <div class="qty">
+            <button onclick="changeQty(${i},-1)">−</button><span>${x.qty}</span>
+            <button onclick="changeQty(${i},1)">+</button>
+          </div>
+        </div>
+        <button class="remove" onclick="removeItem(${i})">Eliminar</button>
+      </div>`;
+    }).join("");
+  }
+  document.getElementById("cartSummary").innerHTML = cart.length ? summaryHTML() : "";
+  document.getElementById("checkoutBtn").classList.toggle("hidden",cart.length===0);
+}
+function changeQty(i,n) {
+  cart[i].qty += n;
+  if(cart[i].qty<=0) cart.splice(i,1);
+  updateCartCount(); renderCart();
+}
+function removeItem(i) {
+  cart.splice(i,1); updateCartCount(); renderCart();
+}
+function startCheckout() {
+  if(cart.length===0) return;
+  closeModal("cartOverlay");
+  if(!currentUser) {
+    authMode="login";
+    updateAuthUI();
+    showModal("authOverlay");
+    document.getElementById("authMessage").textContent="Inicia sesión para continuar con tu pedido.";
+    return;
+  }
+  prepareCheckout();
+  showModal("checkoutOverlay");
+}
+function prepareCheckout() {
+  document.getElementById("shipName").value=currentUser.name||"";
+  document.getElementById("shipEmail").value=currentUser.email||"";
+  document.getElementById("checkoutSummary").innerHTML=summaryHTML();
+}
+function updateAuthUI() {
+  const reg=authMode==="register";
+  document.getElementById("authTitle").textContent=reg?"Crear cuenta":"Iniciar sesión";
+  document.getElementById("nameGroup").classList.toggle("hidden",!reg);
+  document.getElementById("authName").required=reg;
+  document.getElementById("authSubmit").textContent=reg?"CREAR MI CUENTA":"INICIAR SESIÓN";
+  document.getElementById("authSwitch").textContent=reg?"Ya tengo cuenta · Iniciar sesión":"No tengo cuenta · Registrarme";
+  document.getElementById("authPassword").autocomplete=reg?"new-password":"current-password";
+}
+function toggleAuthMode() {
+  authMode=authMode==="register"?"login":"register";
+  document.getElementById("authMessage").textContent="";
+  updateAuthUI();
+}
+function openAccount() {
+  if(currentUser) {
+    if(confirm("Sesión iniciada como "+currentUser.name+". ¿Quieres cerrar sesión?")) {
+      currentUser=null;
+      alert("Sesión cerrada.");
+    }
+    return;
+  }
+  authMode="login"; updateAuthUI(); showModal("authOverlay");
+}
+document.getElementById("authForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const name=document.getElementById("authName").value.trim();
+  const email=document.getElementById("authEmail").value.trim().toLowerCase();
+  const password=document.getElementById("authPassword").value;
+  const message=document.getElementById("authMessage");
+  let users;
+  try { users=JSON.parse(localStorage.getItem(AUTH_KEY)||"[]"); }
+  catch { users=[]; }
+  if(authMode==="register") {
+    if(users.some(u=>u.email===email)) {
+      message.textContent="Ese correo ya está registrado. Inicia sesión.";
+      return;
+    }
+    users.push({name,email,password});
+    localStorage.setItem(AUTH_KEY,JSON.stringify(users));
+    currentUser={name,email};
+    syncUserToPanel(name, email, "", "");
+  } else {
+    const user=users.find(u=>u.email===email && u.password===password);
+    if(!user) {
+      message.textContent="Correo o contraseña incorrectos.";
+      return;
+    }
+    currentUser={name:user.name,email:user.email};
+  }
+  closeModal("authOverlay");
+  document.getElementById("authForm").reset();
+  if(cart.length) {
+    prepareCheckout();
+    showModal("checkoutOverlay");
+  } else {
+    alert("¡Bienvenido/a a SnikersTech, "+currentUser.name+"!");
+  }
+});
+document.querySelectorAll('input[name="payment"]').forEach(input=>{
+  input.addEventListener("change",()=>{
+    const info=document.getElementById("paymentInfo");
+    info.classList.remove("hidden");
+    info.textContent=input.value==="Contraentrega"
+      ? "Pago contraentrega: esta opción se simula en el proyecto. La disponibilidad real debe confirmarse con el vendedor."
+      : "Método seleccionado: "+input.value+". En esta versión académica se registra la selección, pero no se procesa ningún pago real.";
+  });
+});
+document.getElementById("checkoutForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  if(cart.length===0) {
+    closeModal("checkoutOverlay");
+    alert("Tu carrito está vacío.");
+    return;
+  }
+  if(!e.target.reportValidity()) return;
+  const form=new FormData(e.target);
+  const orderNumber="ST-"+Date.now().toString().slice(-8);
+  const t=totals();
+  const order={
+    orderNumber,
+    customer:form.get("fullName"),
+    email:form.get("email"),
+    phone:form.get("phone"),
+    department:form.get("department"),
+    city:form.get("city"),
+    postal:form.get("postal"),
+    address:form.get("address"),
+    notes:form.get("notes"),
+    payment:form.get("payment"),
+    items:cart.map(x=>({...x})),
+    total:t.total,
+    date:new Date().toLocaleString("es-CO")
+  };
+  let orders=[];
+  try { orders=JSON.parse(localStorage.getItem("st_orders")||"[]"); }
+  catch { orders=[]; }
+  orders.push(order);
+  localStorage.setItem("st_orders",JSON.stringify(orders));
+
+  products = getLiveProducts();
+  syncPurchaseToPanel(order, cart, products);
+
+  document.getElementById("successMessage").innerHTML=
+    `<b>Pedido:</b> ${orderNumber}<br><br>`+
+    `<b>Cliente:</b> ${escapeHTML(order.customer)}<br>`+
+    `<b>Entrega:</b> ${escapeHTML(order.address)}, ${escapeHTML(order.city)}<br>`+
+    `<b>Código postal:</b> ${escapeHTML(order.postal)}<br>`+
+    `<b>Pago elegido:</b> ${escapeHTML(order.payment)}<br><br>`+
+    `<b>Total del pedido:</b> ${money(order.total)}`;
+  cart=[];
+  updateCartCount();
+  closeModal("checkoutOverlay");
+  e.target.reset();
+  document.getElementById("paymentInfo").classList.add("hidden");
+  showModal("successOverlay");
+  renderProducts();
+});
+function escapeHTML(s) {
+  return String(s??"").replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[c]);
+}
+function showModal(id) { document.getElementById(id).classList.remove("hidden"); }
+function closeModal(id) { document.getElementById(id).classList.add("hidden"); }
+function showCatalog() {
+  document.getElementById("catalogo").scrollIntoView({behavior:"smooth"});
+}
+products = getLiveProducts();
+renderFilters();
+renderProducts();
+updateCartCount();
+</script>
+</body>
+</html>
